@@ -23,4 +23,27 @@ class UserModel extends Eloquent implements UserInterface, RemindableInterface {
 	 */
 	protected $hidden = array('password', 'remember_token');
 
+	//Add this to tell laravel what can be saved in the users database
+	protected $fillable = array(
+		'username', 
+		'email', 
+		'password', 
+		'access', 
+		'isdel', 
+		'active', 
+		'givenname', 
+		'surname', 
+		'photo', 
+		'last_login'
+		);
+
+	public static $rules = array(
+		'givenname'=>'alpha_num|max:50',
+		'surname'=>'alpha_num|max:50',
+		'username'=>'required|unique:users,username|alpha_dash|min:5',
+		'email'=>'required|unique:users,email|email',
+		'password'=>'required|alpha_num|between:6,100|confirmed',
+		'password_confirmation' => 'required|alpha_num|between:6,100'
+		);
+
 }
